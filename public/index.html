@@ -38,6 +38,7 @@
     <button onclick="SaveCode()">Save</button>
     <button onclick="LoadCode()">Load</button>
     <button onclick="ShareCode()">Share</button>
+    <button onclick="ClearWorkspace()">Clear</button>
   </div>
 
   <div id="codeOutput" class="w3-modal">
@@ -475,6 +476,13 @@
           window.localStorage.setItem("oldSave",productSave)
         
     });
+
+    function ClearWorkspace() {
+      if (confirm("This will clear your workspace and other caches, Are you sure?")) {
+        window.localStorage.clear()
+        Blockly.mainWorkspace.clear()
+      }
+    }
 
     setTimeout(function() {
       let domText = Blockly.Xml.textToDom(window.localStorage.getItem("oldSave"))
