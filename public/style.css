@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    }
+
+.full-height {
+height: 100%;
+}
+
+#blocklyDiv {
+    height: calc(100% - 35px);
+}
+
+.blocklyToolboxDiv, body {
+background-color: #152e4d;
+}
+
+.blocklyTreeSeparator {
+border-color: rgb(119, 119, 119) !important;
+
+}
+
+.blocklySvg, .blocklyTreeSeparator {
+background-color: #12263f;
+}
+
+.blocklyFlyoutBackground {
+fill: #152e4d !important;
+}
+
+.blocklyScrollbarHandle {
+fill: rgb(13, 18, 48) !important;
+}
+
+.blocklyTreeLabel {
+    color: rgb(223, 223, 223);
+    font-family: 'Comfortaa', cursive;
+}
+
+.blocklyText {
+    font-family: 'Ubuntu Mono', monospace !important;
+    font-size: 14px !important;
+}
+
+.blocklyMainBackground {
+    stroke: none !important;
+}
+
+.blocklyTreeRow {
+transition: 0.2s;
+}
+
+.topbar {
+    outline: none;
+    color: white;
+    font-family: 'Comfortaa', cursive;
+    font-size: 13px;
+}
+
+.topbar button {
+    outline: none;
+    border: none;
+    background: transparent;
+    padding: 5px 10px;
+    color: white;
+    font-family: 'Comfortaa', cursive;
+    cursor: pointer;
+}
+
+.blocklyWidgetDiv .blocklyMenu {
+    background: #0a182b !important;
+    overflow-y: hidden !important;
+}
+
+.blocklyMenuItem[aria-disabled="false"] {
+    color: white !important;
+}

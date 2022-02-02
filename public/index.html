@@ -1,0 +1,451 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>PolyVisual</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/6.20210701.0/blockly_compressed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/6.20210701.0/blocks_compressed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/6.20210701.0/msg/en.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/6.20210701.0/lua_compressed.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600&family=Source+Code+Pro:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prettier/2.5.1/standalone.js" integrity="sha512-LlEz0sTF/WLwmjciHgPfGW7rM+3RcAAfzI0bcNJxaQjlKldKBQMhKXGXK5WGmQgg7p+Cegs7TPcal+8QIvNnSA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prettier/2.5.1/parser-babel.min.js" integrity="sha512-k/zKVLfot7qwfzk/1hgbOGMWHlKIT22nnIsv0rl37ZRLCMZzMJNWWKXOeFQWlkk8ZgW/8wWnVrJ6le+3IzkBEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Primary Meta Tags -->
+<title>PolyVisual</title>
+<meta name="title" content="PolyVisual">
+<meta name="description" content="PolyVisual is a block programming for  Polytoria. The page will generate you the result Lua file, Just go ahead and code!">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="PolyVisual">
+<meta property="og:description" content="PolyVisual is a block programming for  Polytoria. The page will generate you the result Lua file, Just go ahead and code!">
+<meta property="og:image" content="https://polyvisual.web.app/assets/logo.png">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:title" content="PolyVisual">
+<meta property="twitter:description" content="PolyVisual is a block programming for  Polytoria. The page will generate you the result Lua file, Just go ahead and code!">
+<meta property="twitter:image" content="https://polyvisual.web.app/assets/logo.png">
+  
+  </head>
+
+<body>
+  <div class="topbar">
+    <button style="padding: 3px;"><img src="assets/logo.png" width="20" height="20"></button>
+    <button onclick="OutputCode()">Generate</button>
+    <button onclick="SaveCode()">Save</button>
+    <button onclick="LoadCode()">Load</button>
+  </div>
+
+  <div id="codeOutput" class="w3-modal">
+    <div class="w3-modal-content">
+      <div class="w3-container">
+        <span onclick="document.getElementById('codeOutput').style.display='none'"
+        class="w3-button w3-display-topright">&times;</span>
+        <p>Code Output</p>
+        <p id="codeField"></p>
+      </div>
+    </div>
+  </div>
+  
+    <xml xmlns="https://developers.google.com/blockly/xml" id="workspaceBlocks" style="display: none"></xml>
+    <div id="blocklyDiv" class="full-height"></div>
+    <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+      <category name="Basic" colour="#bf2f24">
+        <block type="game_broadcastMessage">
+        </block>
+
+        <block type="game_unicastMessage">
+        </block>
+
+        <block type="game_rendered"></block>
+
+        <block type="wait_func"></block>
+
+        <block type="game_getDeltaTime"></block>
+
+        <block type="game_defineObject"></block>
+
+      </category>
+      <category name="Instance" colour="#ff4a4a">
+         
+            <block type="instance_create">
+              <field name="INSTANCE_NAME">Part</field>
+            </block>
+            <block type="instance_property">
+            </block>
+            <block type="instance_getproperty"></block>
+            <block type="instance_getParent">
+            </block>
+            <block type="instance_getChild"></block>
+            <block type="instance_setParent"></block>
+            <block type="instance_getAllChild"></block>
+        </category>
+
+        <category name="Players" colour="#ffa136">
+          <block type="player_playerCount"></block>
+          <block type="player_getAllPlayers"></block>
+        </category>
+
+        <category name="Events" colour="#19e642">
+          <block type="event_ontouched"></block>
+          <block type="event_getHit"></block>
+        </category>
+
+        <category name="Advanced" colour="#4f4f4f">
+          <block type="advanced_nativeLua"></block>
+        </category>
+
+        <sep></sep>
+        <category name="Logic" colour="210">
+          <block type="controls_if"></block>
+          <block type="logic_compare"></block>
+          <block type="logic_operation"></block>
+          <block type="logic_negate"></block>
+          <block type="logic_boolean"></block>
+          <block type="logic_null"></block>
+          <block type="logic_ternary"></block>
+        </category>
+        <category name="Loop" colour="120">
+          <block type="controls_repeat_ext">
+            <value name="TIMES">
+              <shadow type="math_number">
+                <field name="NUM">10</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="controls_whileUntil"></block>
+          <block type="controls_for">
+            <value name="FROM">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <value name="TO">
+              <shadow type="math_number">
+                <field name="NUM">10</field>
+              </shadow>
+            </value>
+            <value name="BY">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="controls_forEach"></block>
+          <block type="controls_flow_statements"></block>
+        </category>
+        <category name="Math" colour="230">
+          <block type="math_number"></block>
+          <block type="math_arithmetic">
+            <value name="A">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <value name="B">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="math_single">
+            <value name="NUM">
+              <shadow type="math_number">
+                <field name="NUM">9</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="math_trig">
+            <value name="NUM">
+              <shadow type="math_number">
+                <field name="NUM">45</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="math_constant"></block>
+          <block type="math_number_property">
+            <value name="NUMBER_TO_CHECK">
+              <shadow type="math_number">
+                <field name="NUM">0</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="math_round">
+            <value name="NUM">
+              <shadow type="math_number">
+                <field name="NUM">3.1</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="math_on_list"></block>
+          <block type="math_modulo">
+            <value name="DIVIDEND">
+              <shadow type="math_number">
+                <field name="NUM">64</field>
+              </shadow>
+            </value>
+            <value name="DIVISOR">
+              <shadow type="math_number">
+                <field name="NUM">10</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="math_constrain">
+            <value name="VALUE">
+              <shadow type="math_number">
+                <field name="NUM">50</field>
+              </shadow>
+            </value>
+            <value name="LOW">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <value name="HIGH">
+              <shadow type="math_number">
+                <field name="NUM">100</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="math_random_int">
+            <value name="FROM">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <value name="TO">
+              <shadow type="math_number">
+                <field name="NUM">100</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="math_random_float"></block>
+        </category>
+        <category name="Text" colour="160">
+          <block type="text"></block>
+          <block type="text_join"></block>
+          <block type="text_append">
+            <value name="TEXT">
+              <shadow type="text"></shadow>
+            </value>
+          </block>
+          <block type="text_length">
+            <value name="VALUE">
+              <shadow type="text">
+                <field name="TEXT">abc</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="text_isEmpty">
+            <value name="VALUE">
+              <shadow type="text">
+                <field name="TEXT"></field>
+              </shadow>
+            </value>
+          </block>
+          <block type="text_indexOf">
+            <value name="VALUE">
+              <block type="variables_get">
+                <field name="VAR">{textVariable}</field>
+              </block>
+            </value>
+            <value name="FIND">
+              <shadow type="text">
+                <field name="TEXT">abc</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="text_charAt">
+            <value name="VALUE">
+              <block type="variables_get">
+                <field name="VAR">{textVariable}</field>
+              </block>
+            </value>
+          </block>
+          <block type="text_getSubstring">
+            <value name="STRING">
+              <block type="variables_get">
+                <field name="VAR">{textVariable}</field>
+              </block>
+            </value>
+          </block>
+          <block type="text_changeCase">
+            <value name="TEXT">
+              <shadow type="text">
+                <field name="TEXT">abc</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="text_trim">
+            <value name="TEXT">
+              <shadow type="text">
+                <field name="TEXT">abc</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="text_print">
+            <value name="TEXT">
+              <shadow type="text">
+                <field name="TEXT">abc</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="text_prompt_ext">
+            <value name="TEXT">
+              <shadow type="text">
+                <field name="TEXT">abc</field>
+              </shadow>
+            </value>
+          </block>
+        </category>
+        <category name="List" colour="260">
+          <block type="lists_create_with">
+            <mutation items="0"></mutation>
+          </block>
+          <block type="lists_create_with"></block>
+          <block type="lists_repeat">
+            <value name="NUM">
+              <shadow type="math_number">
+                <field name="NUM">5</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="lists_length"></block>
+          <block type="lists_isEmpty"></block>
+          <block type="lists_indexOf">
+            <value name="VALUE">
+              <block type="variables_get">
+                <field name="VAR">{listVariable}</field>
+              </block>
+            </value>
+          </block>
+          <block type="lists_getIndex">
+            <value name="VALUE">
+              <block type="variables_get">
+                <field name="VAR">{listVariable}</field>
+              </block>
+            </value>
+          </block>
+          <block type="lists_setIndex">
+            <value name="LIST">
+              <block type="variables_get">
+                <field name="VAR">{listVariable}</field>
+              </block>
+            </value>
+          </block>
+          <block type="lists_getSublist">
+            <value name="LIST">
+              <block type="variables_get">
+                <field name="VAR">{listVariable}</field>
+              </block>
+            </value>
+          </block>
+          <block type="lists_split">
+            <value name="DELIM">
+              <shadow type="text">
+                <field name="TEXT">,</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="lists_sort"></block>
+        </category>
+        
+        <sep></sep>
+        <category name="Variables" colour="330" custom="VARIABLE"></category>
+        <category name="Functions" colour="290" custom="PROCEDURE"></category>
+      </xml>
+
+    <script src="blocks/game_blocks.js"></script>
+    <script src="blocks/instance_blocks.js"></script>
+    <script src="blocks/players_blocks.js"></script>
+    <script src="blocks/events_blocks.js"></script>
+    <script src="blocks/advanced_blocks.js"></script>
+
+    <script>
+      let codeOutput = document.getElementById("codeOutput")
+      let codeField = document.getElementById("codeField")
+      const fileSelector = document.createElement('input');
+          fileSelector.setAttribute('type', 'file');
+          fileSelector.setAttribute('accept', '.ptmv');
+
+        var workspace = Blockly.inject('blocklyDiv',
+            { toolbox: document.getElementById('toolbox') });
+        function OutputCode() {
+            var code = Blockly.Lua.workspaceToCode(workspace);
+            code = "local deltaTime = 0\n" + code
+            codeField.setAttribute('style', 'white-space: pre;');
+            codeField.textContent = code
+            codeOutput.style.display = "block"
+        }
+
+        function SaveCode() {
+          let resultSaveXML = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace)
+          let productSave = Blockly.Xml.domToText(resultSaveXML)
+            let blob = new Blob([productSave], {type: 'text/xml'});
+
+            let a = document.createElement("a"),
+                url = URL.createObjectURL(blob);
+            a.href = url;
+            a.download = "file.ptmv";
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(function() {
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);  
+            }, 0); 
+        }
+
+        let isCtrl = false;
+        document.onkeyup=function(e){
+            if(e.keyCode == 17) isCtrl=false;
+        }
+
+        document.onkeydown=function(e){
+            if(e.keyCode == 17) isCtrl=true;
+            if(e.keyCode == 83 && isCtrl == true) {
+              SaveCode()
+                return false;
+            }
+        }
+
+        function LoadCode() {
+
+          if (confirm("This action will overwrite all unsaved changes, Are you sure?")) {
+            fileSelector.click()
+          }
+        
+        }
+
+        function handleFileLoad(evt) {
+          let files = evt.target.files; // FileList object
+
+          // use the 1st file from the list
+          let f = files[0];
+          
+          let reader = new FileReader();
+
+          // Closure to capture the file information.
+          reader.onload = (function(theFile) {
+              return function(e) {
+                Blockly.mainWorkspace.clear()
+                let domText = Blockly.Xml.textToDom(e.target.result)
+                Blockly.Xml.domToWorkspace(Blockly.mainWorkspace,domText)
+              };
+            })(f);
+
+            // Read in the image file as a data URL.
+            reader.readAsText(f);
+        }
+
+        fileSelector.addEventListener('change', handleFileLoad, false);
+
+
+    </script>
+</body>
+</html>
