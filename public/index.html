@@ -12,9 +12,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600&family=Source+Code+Pro:wght@300;400;500&display=swap" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prettier/2.5.1/standalone.js" integrity="sha512-LlEz0sTF/WLwmjciHgPfGW7rM+3RcAAfzI0bcNJxaQjlKldKBQMhKXGXK5WGmQgg7p+Cegs7TPcal+8QIvNnSA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prettier/2.5.1/parser-babel.min.js" integrity="sha512-k/zKVLfot7qwfzk/1hgbOGMWHlKIT22nnIsv0rl37ZRLCMZzMJNWWKXOeFQWlkk8ZgW/8wWnVrJ6le+3IzkBEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
     <!-- Primary Meta Tags -->
 <title>PolyVisual</title>
 <meta name="title" content="PolyVisual">
@@ -40,6 +37,7 @@
     <button onclick="OutputCode()">Generate</button>
     <button onclick="SaveCode()">Save</button>
     <button onclick="LoadCode()">Load</button>
+    <button onclick="ShareCode()">Share</button>
   </div>
 
   <div id="codeOutput" class="w3-modal">
@@ -48,7 +46,9 @@
         <span onclick="document.getElementById('codeOutput').style.display='none'"
         class="w3-button w3-display-topright">&times;</span>
         <p>Code Output</p>
+        <button onclick="CopyCode()">Copy</button>
         <p id="codeField"></p>
+        
       </div>
     </div>
   </div>
@@ -398,6 +398,16 @@
             codeOutput.style.display = "block"
         }
 
+        function CopyCode() {
+          let TempText = document.createElement("input");
+            TempText.value = codeField.textContent;
+            document.body.appendChild(TempText);
+            TempText.select();
+            
+            document.execCommand("copy");
+            document.body.removeChild(TempText);
+        }
+
         function SaveCode() {
           let resultSaveXML = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace)
           let productSave = Blockly.Xml.domToText(resultSaveXML)
@@ -468,5 +478,13 @@
     });
 
     </script>
+
+    <script type='text/javascript' src='firebase/firebaseAccess.js'></script>
+    <script>
+      function ShareCode() {
+        
+      }
+    </script>
+
 </body>
 </html>
