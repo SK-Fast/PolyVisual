@@ -100,7 +100,7 @@ Blockly.Blocks['game_defineObject'] = {
         ],
 
         "colour": "#bf2f24",
-        "output": "String",
+        "output": "GameInstance",
 
         }
 
@@ -152,7 +152,7 @@ Blockly.Lua['game_unicastMessage'] = function(block) {
 
 Blockly.Lua['game_rendered'] = function(block) {
   let subString = Blockly.Lua.statementToCode(block, 'FUNCTION') || '';
-  let code = "game.Rendered:Connect(function(renderDeltaTime)\n\tdeltaTime = renderDeltaTime\n" + subString +"\nend)\n";
+  let code = "game.Rendered:Connect(function(deltaTime)\n" + subString +"\nend)\n";
   return code;
 };
 

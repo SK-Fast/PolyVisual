@@ -90,11 +90,25 @@
         <category name="Players" colour="#ffa136">
           <block type="player_playerCount"></block>
           <block type="player_getAllPlayers"></block>
+          <block type="player_playerJoined"></block>
+          <block type="player_getJoinedPlr"></block>
+          <block type="player_getLocalPlr"></block>
         </category>
 
         <category name="Events" colour="#19e642">
           <block type="event_ontouched"></block>
           <block type="event_getHit"></block>
+
+          <block type="event_onInputDown"></block>
+          <block type="event_onInputUp"></block>
+          <block type="event_getKey"></block>
+        </category>
+
+        <category name="Vector3" colour="#592396">
+          <block type="vector3_create"></block>
+          <block type="vector3_getX"></block>
+          <block type="vector3_getY"></block>
+          <block type="vector3_getZ"></block>
         </category>
 
         <category name="Advanced" colour="#4f4f4f">
@@ -366,6 +380,7 @@
     <script src="blocks/players_blocks.js"></script>
     <script src="blocks/events_blocks.js"></script>
     <script src="blocks/advanced_blocks.js"></script>
+    <script src="blocks/vector3_blocks.js"></script>
 
     <script>
       let codeOutput = document.getElementById("codeOutput")
@@ -378,7 +393,6 @@
             { toolbox: document.getElementById('toolbox') });
         function OutputCode() {
             var code = Blockly.Lua.workspaceToCode(workspace);
-            code = "local deltaTime = 0\n" + code
             codeField.setAttribute('style', 'white-space: pre;');
             codeField.textContent = code
             codeOutput.style.display = "block"
@@ -445,6 +459,13 @@
 
         fileSelector.addEventListener('change', handleFileLoad, false);
 
+        window.addEventListener("beforeunload", function (e) {
+        let confirmationMessage = 'It looks like you have been editing something. '
+                                + 'If you leave before saving, your changes will be lost.';
+
+        (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+        return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+    });
 
     </script>
 </body>

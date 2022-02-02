@@ -9,7 +9,7 @@ Blockly.Blocks['instance_create'] = {
               "check": "String"
             },
         ],
-        "output": "String",
+        "output": "GameInstance",
 
         "colour": "#ff4a4a",
         "helpUrl": "https://docs.polytoria.com/classes/Instance/Static%20functions/New/"
@@ -34,10 +34,10 @@ Blockly.Blocks['instance_getChild'] = {
           {
             "type": "input_value",
             "name": "TARGET_OBJECT",
-            "check": "String"
+            "check": "GameInstance"
           },
         ],
-        "output": "String",
+        "output": "GameInstance",
 
         "colour": "#ff4a4a",
 
@@ -56,7 +56,7 @@ Blockly.Blocks['instance_getAllChild'] = {
           {
               "type": "input_value",
               "name": "OBJECT_NAME",
-              "check": "String"
+              "check": "GameInstance"
             },
         ],
        
@@ -78,10 +78,10 @@ Blockly.Blocks['instance_getParent'] = {
           {
               "type": "input_value",
               "name": "OBJECT_NAME",
-              "check": "String"
+              "check": "GameInstance"
             },
         ],
-        "output": "String",
+        "output": "GameInstance",
 
         "colour": "#ff4a4a",
 
@@ -99,7 +99,7 @@ Blockly.Blocks['instance_property'] = {
               {
               "type": "input_value",
               "name": "VAR",
-              "check": "String"
+              "check": "GameInstance"
               },
               {
               "type": "input_value",
@@ -131,7 +131,7 @@ Blockly.Blocks['instance_property'] = {
               {
               "type": "input_value",
               "name": "TARGET_OBJECT",
-              "check": "String"
+              "check": "GameInstance"
               },
               {
               "type": "input_value",
@@ -158,11 +158,12 @@ Blockly.Blocks['instance_property'] = {
               {
               "type": "input_value",
               "name": "TARGET_OBJECT",
-              "check": "String"
+              "check": "GameInstance"
               },
               {
               "type": "input_value",
               "name": "VALUE_OBJECT",
+              "check": "GameInstance",
               "previousStatement": "Action",
               "nextStatement": "Action",
               },
