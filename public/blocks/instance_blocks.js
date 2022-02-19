@@ -244,7 +244,7 @@ Blockly.Blocks['instance_property'] = {
   
       if (varTag == "") {
         block.applyColour("#ff0000")
-        return alert("Compile error: No object at instance_property block(see comment)")
+        return alert("Compile error: No object at instance_property block.")
       }
   
       let code = varTag + "." + propertyName.replace(/'/g,"") + " = " + propertyValue + "\n";

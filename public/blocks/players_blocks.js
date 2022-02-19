@@ -71,7 +71,7 @@ Blockly.Blocks['player_getJoinedPlr'] = {
         "message0": "Get Joined Player",
 
         "colour": "#ffa136",
-        "output": "String"
+        "output": "GameInstance"
 
         }
 
@@ -91,7 +91,7 @@ Blockly.Blocks['player_getLocalPlr'] = {
         "message0": "Get Local Player",
 
         "colour": "#ffa136",
-        "output": "String"
+        "output": "GameInstance"
 
         }
 

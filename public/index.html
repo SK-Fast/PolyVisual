@@ -10,7 +10,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600&family=Source+Code+Pro:wght@300;400;500&display=swap" rel="stylesheet">
-    <link href="style.css" rel="stylesheet">
+
+<link href="https://polytoria.com/assets/fonts/feather/feather.min.css" rel="stylesheet">
+
+<link href="style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <!-- Primary Meta Tags -->
 <title>PolyVisual</title>
@@ -33,12 +36,12 @@
 
 <body>
   <div class="topbar">
-    <button style="padding: 3px;"><img src="assets/logo.png" width="20" height="20"></button>
-    <button onclick="OutputCode()">Generate</button>
-    <button onclick="SaveCode()">Save</button>
-    <button onclick="LoadCode()">Load</button>
-    <button onclick="ShareCode()">Share</button>
-    <button onclick="ClearWorkspace()">Clear</button>
+      <button style="padding: 3px;"><img src="assets/logo.png" width="20" height="20"></button>
+      <button onclick="OutputCode()"> Generate</button>
+      <button onclick="SaveCode()"><i class="fe fe-bell"></i> Save</button>
+      <button onclick="LoadCode()">Load</button>
+      <button id="shareBtn">Share</button>
+      <button onclick="ClearWorkspace()">Clear</button>
   </div>
 
   <div id="codeOutput" class="w3-modal">
@@ -53,34 +56,92 @@
       </div>
     </div>
   </div>
+
+  <div id="shareOutput" class="w3-modal">
+    <div class="w3-modal-content">
+      <div class="w3-container">
+        <span onclick="document.getElementById('codeOutput').style.display='none'"
+        class="w3-button w3-display-topright">&times;</span>
+        <p>Share Link</p>
+        <label>Share URL:</label>
+        <input type="url" id="shareURL"><br>
+
+        <label>Embed:</label>
+        <input type="url" id="shareEmbed"><br>
+        
+      </div>
+    </div>
+  </div>
   
     <xml xmlns="https://developers.google.com/blockly/xml" id="workspaceBlocks" style="display: none"></xml>
     <div id="blocklyDiv" class="full-height"></div>
     <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
       <category name="Basic" colour="#bf2f24">
         <block type="game_broadcastMessage">
+          <value name="MESSAGE">
+            <shadow type="text">
+              <field name="TEXT">Hello World!</field>
+            </shadow>
+          </value>
         </block>
 
         <block type="game_unicastMessage">
+          <value name="MESSAGE">
+            <shadow type="text">
+              <field name="TEXT">Hello World!</field>
+            </shadow>
+          </value>
         </block>
 
         <block type="game_rendered"></block>
 
-        <block type="wait_func"></block>
+        <block type="wait_func">
+          <value name="WAIT_NUM">
+            <shadow type="math_number">
+              <field name="NUMBER">1</field>
+            </shadow>
+          </value>
+        </block>
 
         <block type="game_getDeltaTime"></block>
 
-        <block type="game_defineObject"></block>
+        <block type="game_defineObject">
+          <value name="OBJECT_STRING">
+            <shadow type="text">
+              <field name="TEXT">game</field>
+            </shadow>
+          </value>
+        </block>
 
       </category>
       <category name="Instance" colour="#ff4a4a">
          
             <block type="instance_create">
-              <field name="INSTANCE_NAME">Part</field>
+              <value name="INSTANCE_NAME">
+                <shadow type="text">
+                  <field name="TEXT">Part</field>
+                </shadow>
+              </value>
             </block>
             <block type="instance_property">
+              <value name="PROPERTY_VAL">
+                <shadow type="text">
+                  <field name="TEXT">Anchored</field>
+                </shadow>
+              </value>
+
+              <value name="VALUE">
+                <shadow type="logic_boolean">
+                </shadow>
+              </value>
             </block>
-            <block type="instance_getproperty"></block>
+            <block type="instance_getproperty">
+              <value name="PROPERTY_NAME">
+                <shadow type="text">
+                  <field name="TEXT">Name</field>
+                </shadow>
+              </value>
+            </block>
             <block type="instance_getParent">
             </block>
             <block type="instance_getChild"></block>
@@ -105,11 +166,19 @@
           <block type="event_getKey"></block>
         </category>
 
-        <category name="Vector3" colour="#592396">
+        <category name="Types" colour="#592396">
           <block type="vector3_create"></block>
           <block type="vector3_getX"></block>
           <block type="vector3_getY"></block>
           <block type="vector3_getZ"></block>
+          <sep></sep>
+          <block type="color_create"></block>
+          <block type="color_fromHex"></block>
+          <block type="color_fromPicker"></block>
+          <block type="color_getR"></block>
+          <block type="color_getG"></block>
+          <block type="color_getB"></block>
+          <block type="color_getA"></block>
         </category>
 
         <category name="Advanced" colour="#4f4f4f">
@@ -382,6 +451,10 @@
     <script src="blocks/events_blocks.js"></script>
     <script src="blocks/advanced_blocks.js"></script>
     <script src="blocks/vector3_blocks.js"></script>
+    <script src="blocks/color_blocks.js"></script>
+
+    <script src="blocks/shareScript.js" async></script>
+    <script src="blocks/accountScript.js" async></script>
 
     <script>
       let codeOutput = document.getElementById("codeOutput")
@@ -493,9 +566,11 @@
 
     <script type='text/javascript' src='firebase/firebaseAccess.js'></script>
     <script>
-      function ShareCode() {
-        
+      window.addEventListener("load", () => {
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("service-worker.js");
       }
+    });
     </script>
 
 </body>

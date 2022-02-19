@@ -5,7 +5,7 @@ html, body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    }
+}
 
 .full-height {
 height: 100%;
@@ -13,6 +13,12 @@ height: 100%;
 
 #blocklyDiv {
     height: calc(100% - 35px);
+}
+
+.blocklyColourTable tr td {
+    border: none;
+    border-radius: 50%;
+    margin: 2px;
 }
 
 .blocklyToolboxDiv, body {
@@ -51,7 +57,15 @@ fill: rgb(13, 18, 48) !important;
 }
 
 .blocklyTreeRow {
-transition: 0.2s;
+    transition: 0.5s;
+}
+
+.blocklyPathLight, .blocklyPathDark {
+    visibility: hidden;
+}
+
+.blocklyTreeRow:hover {
+    transition: 0s;
 }
 
 .topbar {
@@ -71,11 +85,20 @@ transition: 0.2s;
     cursor: pointer;
 }
 
-.blocklyWidgetDiv .blocklyMenu {
+.blocklyWidgetDiv .blocklyMenu, .blocklyDropDownDiv {
     background: #0a182b !important;
     overflow-y: hidden !important;
+    border: none;
 }
 
 .blocklyMenuItem[aria-disabled="false"] {
     color: white !important;
+}
+
+.float-start {
+    float: left;
+}
+
+.float-end {
+    float: right;
 }

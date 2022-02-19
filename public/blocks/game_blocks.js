@@ -123,7 +123,7 @@ Blockly.Blocks['game_getDeltaTime'] = {
 
 Blockly.Lua['game_broadcastMessage'] = function(block) {
   let subString = Blockly.Lua.valueToCode(block, 'MESSAGE',Blockly.Lua.ORDER_NONE) || '\'\'';
-  let code = "game:BroadcastMessage" + '(' + subString + ')\n';
+  let code = "Chat:BroadcastMessage" + '(' + subString + ')\n';
   
   return code;
 };
@@ -144,7 +144,7 @@ Blockly.Lua['game_defineObject'] = function(block) {
 Blockly.Lua['game_unicastMessage'] = function(block) {
   let subString = Blockly.Lua.valueToCode(block, 'MESSAGE',Blockly.Lua.ORDER_NONE) || '\'\'';
   let subString2 = Blockly.Lua.valueToCode(block, 'PLAYER',Blockly.Lua.ORDER_NONE) || '\'\'';
-  let code = "game:UnicastMessage" + '(' + subString + ',' + subString2 + ')\n';
+  let code = "Chat:UnicastMessage" + '(' + subString + ',' + subString2 + ')\n';
   
   return code;
 };

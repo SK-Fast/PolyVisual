@@ -35,7 +35,7 @@ Blockly.Blocks['event_getHit'] = {
   init: function() {
     this.jsonInit({
         "message0": "Get Hit",
-        "output": "String",
+        "output": "GameInstance",
         "colour": "#19c23b",
 
         }
@@ -73,7 +73,7 @@ Blockly.Blocks['event_onInputDown'] = {
 
 Blockly.Lua['event_onInputDown'] = function(block) {
   let subString = Blockly.Lua.statementToCode(block, 'FUNCTION') || '';
-  let code = "InputService.KeyDown:Connect(function(key)\n" + subString +"\nend)\n";
+  let code = "Input.KeyDown:Connect(function(key)\n" + subString +"\nend)\n";
   return code;
 };
 
