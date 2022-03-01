@@ -15,6 +15,10 @@ height: 100%;
     height: calc(100% - 35px);
 }
 
+.blocklyTreeIcon {
+    background: none !important;
+}
+
 .blocklyColourTable tr td {
     border: none;
     border-radius: 50%;

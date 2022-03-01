@@ -7,11 +7,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/6.20210701.0/blocks_compressed.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/6.20210701.0/msg/en.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/6.20210701.0/lua_compressed.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
+<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600&family=Source+Code+Pro:wght@300;400;500&display=swap" rel="stylesheet">
-
-<link href="https://polytoria.com/assets/fonts/feather/feather.min.css" rel="stylesheet">
 
 <link href="style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -38,10 +40,11 @@
   <div class="topbar">
       <button style="padding: 3px;"><img src="assets/logo.png" width="20" height="20"></button>
       <button onclick="OutputCode()"> Generate</button>
-      <button onclick="SaveCode()"><i class="fe fe-bell"></i> Save</button>
+      <button onclick="SaveCode()">Save</button>
       <button onclick="LoadCode()">Load</button>
       <button id="shareBtn">Share</button>
       <button onclick="ClearWorkspace()">Clear</button>
+
   </div>
 
   <div id="codeOutput" class="w3-modal">
@@ -60,7 +63,7 @@
   <div id="shareOutput" class="w3-modal">
     <div class="w3-modal-content">
       <div class="w3-container">
-        <span onclick="document.getElementById('codeOutput').style.display='none'"
+        <span onclick="document.getElementById('shareOutput').style.display='none'"
         class="w3-button w3-display-topright">&times;</span>
         <p>Share Link</p>
         <label>Share URL:</label>
@@ -68,6 +71,8 @@
 
         <label>Embed:</label>
         <input type="url" id="shareEmbed"><br>
+
+        <br>
         
       </div>
     </div>
@@ -453,20 +458,27 @@
     <script src="blocks/vector3_blocks.js"></script>
     <script src="blocks/color_blocks.js"></script>
 
-    <script src="blocks/shareScript.js" async></script>
+    <script src="firebase/shareScript.js" type="module" async></script>
     <script src="blocks/accountScript.js" async></script>
 
     <script>
+      Blockly.inject('blocklyDiv',
+      {toolbox: document.getElementById('toolbox'),
+      grid:
+          {spacing: 20,
+            length: 3,
+            colour: '#304969',
+            snap: true},
+      trashcan: true});
+
       let codeOutput = document.getElementById("codeOutput")
       let codeField = document.getElementById("codeField")
       const fileSelector = document.createElement('input');
           fileSelector.setAttribute('type', 'file');
           fileSelector.setAttribute('accept', '.ptmv');
 
-        var workspace = Blockly.inject('blocklyDiv',
-            { toolbox: document.getElementById('toolbox') });
         function OutputCode() {
-            var code = Blockly.Lua.workspaceToCode(workspace);
+            var code = Blockly.Lua.workspaceToCode(Blockly.mainWorkspace);
             codeField.setAttribute('style', 'white-space: pre;');
             codeField.textContent = code
             codeOutput.style.display = "block"
@@ -543,13 +555,6 @@
 
         fileSelector.addEventListener('change', handleFileLoad, false);
 
-        window.addEventListener("beforeunload", function (e) {
-          let resultSaveXML = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace)
-          let productSave = Blockly.Xml.domToText(resultSaveXML)
-          window.localStorage.setItem("oldSave",productSave)
-        
-    });
-
     function ClearWorkspace() {
       if (confirm("This will clear your workspace and other caches, Are you sure?")) {
         window.localStorage.clear()
@@ -557,10 +562,13 @@
       }
     }
 
-    setTimeout(function() {
-      let domText = Blockly.Xml.textToDom(window.localStorage.getItem("oldSave"))
-      Blockly.Xml.domToWorkspace(Blockly.mainWorkspace,domText)
-    },0)
+    window.addEventListener("beforeunload", function (e) {
+    var confirmationMessage = 'It looks like you have been editing something. '
+                            + 'If you leave before saving, your changes will be lost.';
+
+    (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+    return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+});
 
     </script>
 
